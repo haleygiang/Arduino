@@ -23,17 +23,15 @@ void loop()
   leds = 0;
   updateShiftRegister();
   delay(500);
-  for (int i = 0; i < 8; i++)
-  {
-    bitSet(leds, i);
-    updateShiftRegister();
-    delay(500);
+  
+int i;
+  for (i=0; i <8;i++){
+  bitSet(leds, i);
+  updateShiftRegister();
+  delay(1000);
   }
-  for (byte b = 255; b > 0; b--)
-  {
-    setBrightness(b);
-    delay(50);
-  }
+  
+ 
 }
 
 void updateShiftRegister()
