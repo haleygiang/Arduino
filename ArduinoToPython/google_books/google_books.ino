@@ -1,36 +1,27 @@
 #include <LiquidCrystal.h>
-int data; 
+String data; 
 String temp = " ";
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() {
   lcd.begin(16, 2);
-  // lcd.print("michelle obama");
   Serial.begin(9600);
-  Serial.println("Ready");
 }
 
 void loop() {
   if (Serial.available()){
-    Serial.println("available");
-    
-    data = Serial.read();
+    // Convert data to string
+    data = Serial.readStringUntil(' ');
+
+    // Print data to LCD screen
     if (data){
       temp = String(data);
-      Serial.println(temp);
+      lcd.print(temp);
+      lcd.print(' ');
       }
-      
-    //Serial.println(data);
-    //temp = String(data);
-    //Serial.print(temp);
-    //lcd.print(temp);
+
   }
-  else{
-    Serial.println("not available");
-    }
-    
-    delay(1000);
-  }
+}
     
   

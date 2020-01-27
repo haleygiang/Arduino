@@ -11,9 +11,10 @@ import time
 arduino = serial.Serial('/dev/cu.usbmodem14201', 9600)
 
 # Check response code
-response = requests.get("https://www.googleapis.com/books/v1/volumes?q=picture+of+dorian+gray")
-#print(response.status_code)
+response = requests.get("https://www.googleapis.com/books/v1/volumes?q=becoming")
+
 if response.status_code != 200:
+	
 	# This means something went wrong.
 	raise ApiError('GET /tasks/ {}'.format(resp.status_code))
 
@@ -22,13 +23,18 @@ if response.status_code != 200:
 data = response.json()
 obj = data['items']
 authors = obj[0]['volumeInfo']['authors']
-author = authors[0]
-print(author)
+author = authors[0].split()
+first = author[0]
+last = author[1]
+
+print(first, last)
 
 # Send data to Arduino
-while True:
-#message = arduino.write(2.encode())
-	message = arduino.write(b'hello')
-	if message:
-		print(message)
+for i in range(2):
+	arduino.write(first.encode())
+
+	arduino.write(' '.encode())
+
+	arduino.write(last.encode())
+
 	time.sleep(1)
