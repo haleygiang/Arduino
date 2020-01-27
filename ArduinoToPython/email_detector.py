@@ -27,7 +27,7 @@ def send_email():
     
 while True:
     message = ser.readline()
-    print(message)
-    if message[0] == 'M' :
+    print(message[:-2])
+    if 'MOVEMENT' in str(message):
         send_email()
     time.sleep(0.5)
